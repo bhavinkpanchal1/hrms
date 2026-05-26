@@ -11,6 +11,7 @@ function CreateCandidatePage() {
       </Button>
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-center">Create Candidate Page</h1>
+        {/* test */}
         <CandidateForm />
       </div>
     </>
