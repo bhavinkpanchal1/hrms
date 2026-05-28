@@ -8,7 +8,7 @@ function CandidateListPage() {
         <h2>Candidate List page</h2>
         <div className="flex mt-1 mb-2">
         <Link
-          to="/recruitment/candidates/create"
+          to="/recruitment/candidates/form"
           className="bg-violet-700 text-sm rounded-xl text-white px-3 py-2 ml-auto"
         >
           Create Candidate

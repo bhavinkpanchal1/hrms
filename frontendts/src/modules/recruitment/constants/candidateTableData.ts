@@ -1,4 +1,6 @@
-export const CandidateTableData = [
+import type { CandidateFormValues } from "../types/candidate.types";
+
+export const CandidateTableData: CandidateFormValues[] = [
   {
     id: 1,
     firstName: "Bhavin",
@@ -8,7 +10,7 @@ export const CandidateTableData = [
     experience: "1 year",
     skills: "Developer",
     currentCompany: "Techoma",
-    status:"Review"
+    status:"Created"
   },
   {
     id: 2,
@@ -19,6 +21,6 @@ export const CandidateTableData = [
     experience: "2 year",
     skills: "Director",
     currentCompany: "Techoma",
-    status:"Review"
+    status:"Hired"
   },
 ];

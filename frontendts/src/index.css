@@ -1,1 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import "tailwindcss";
+
+
+
+/* The Tailwind v4 Configuration Directive */
+@theme {
+  --font-sans: "Open Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji";
+  --line-height: "1.2";
+}
+
+/* Force override the UI template's specific variable */
+:root, body {
+    --default-font-family: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--default-font-family) !important;
+    line-height: var(--line-height);
+}
+
+@layer components {
+    .card {
+        --tw-shadow: 0 3px 10px 0 var(--tw-shadow-color,#302e380f);
+        background-color: var(--color-white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+        color: var(--color-slate-500);
+        display: flex;
+        flex-direction: column;
+        min-width: 1px;
+        overflow-wrap: break-word;
+        position: relative
+    }
+  }

@@ -8,14 +8,19 @@ import Button from "../../../shared/components/Button";
 import FormField from "../../../shared/components/FormField";
 import { formFieldData } from "./../constants/candidateFormFields"
 
-function CandidateForm() {
+type CandidateFormProps = {
+  defaultValues?: CandidateFormValues;
+  isEditMode?: boolean;
+}
 
+function CandidateForm({defaultValues, isEditMode}:CandidateFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CandidateFormValues>({
     resolver: zodResolver(candidateSchema),
+    defaultValues,
   });
 
   const inputTextStyle = "w-full border rounded-lg p-3";
@@ -36,12 +41,13 @@ function CandidateForm() {
             className={inputTextStyle}
             placeholder={item.placeholder}
             {...register(item.name)}
-            error={errors[item.name]?.message}
+            error ={errors[item.name]?.message || ""} 
           />
         ))
         }
+      
         <Button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-          Create Candidate
+        {isEditMode ? "Update Candidate" : "Create Candidate"};
         </Button>
       </div>
     </form>

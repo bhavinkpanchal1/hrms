@@ -1,12 +1,6 @@
-export type CandidateFormValues = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  experience: string;
-  skills: string;
-  currentCompany: string;
-};
+import type { candidateFormValues } from "../validations/candidate.schema";
+
+export type CandidateFormValues = candidateFormValues;
 
 export type FormFieldConfig = {
   name: keyof CandidateFormValues;

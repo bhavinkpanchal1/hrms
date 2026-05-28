@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layouts/DashboardLayout";
 import CandidateListPage from "../../modules/recruitment/pages/CandidateListPage";
-import CreateCandidatePage from "../../modules/recruitment/pages/CreateCandidatePage";
+import CandidateFormPage from "../../modules/recruitment/pages/CandidateFormPage";
 import CandidateDetailsPage from "../../modules/recruitment/pages/CandidateDetailsPage";
 
 export const router = createBrowserRouter([
@@ -14,8 +14,12 @@ export const router = createBrowserRouter([
                 element: <CandidateListPage />,
             },
             {
-                path: "recruitment/candidates/create",
-                element: <CreateCandidatePage />,
+                path: "recruitment/candidates/form",
+                element: <CandidateFormPage />,
+            },
+            {
+                path: "recruitment/candidates/form/:id",
+                element: <CandidateFormPage />,
             },
             {
                 path: "recruitment/candidates/:id",
