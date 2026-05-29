@@ -6,8 +6,11 @@ function DashboardLayout() {
       <aside className="w-64 bg-gray-900 text-stone-50 p-4">
         Sidebar
         <ul>
-          <li>
+          <li className="hover:bg-blue-900">
             <Link to={"/recruitment/candidates"}>Recruitment</Link>
+          </li>
+          <li className="hover:bg-blue-900">
+            <Link to="/recruitment/interview">Scheduled Interivew</Link>
           </li>
         </ul>
       </aside>

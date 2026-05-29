@@ -29,10 +29,12 @@ function CandidateForm({defaultValues, isEditMode}:CandidateFormProps) {
   const onSubmit = (data: CandidateFormValues) => {
     console.log(data);
   };
+  {console.log(errors);}
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid gap-4 md:grid-cols-2">
+      <div >
+        <div className="grid gap-4 md:grid-cols-2">
         {formFieldData.map((item) => (
           <FormField
             key={item.name}
@@ -44,11 +46,15 @@ function CandidateForm({defaultValues, isEditMode}:CandidateFormProps) {
             error ={errors[item.name]?.message || ""} 
           />
         ))
+        
         }
-      
-        <Button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-        {isEditMode ? "Update Candidate" : "Create Candidate"};
+        
+      </div>
+       <div className="w-full mx-auto">
+        <Button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 mt-3">
+        {isEditMode ? "Update Candidate" : "Create Candidate"}
         </Button>
+       </div>
       </div>
     </form>
   );

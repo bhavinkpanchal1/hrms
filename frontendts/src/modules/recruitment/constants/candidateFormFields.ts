@@ -8,6 +8,12 @@ export const formFieldData: FormFieldConfig[] = [
     placeholder: "Enter first name",
   },
   {
+    name: "lastName",
+    label: "Last name",
+    type: "text",
+    placeholder: "Enter Last name",
+  },
+  {
     name: "email",
     label: "Email",
     type: "email",
@@ -37,5 +43,4 @@ export const formFieldData: FormFieldConfig[] = [
     type: "text",
     placeholder: "Enter Current Company",
   },
-
 ];
