@@ -4,13 +4,33 @@ import InterviewStatusBadge from "./InterviewStatusBadge";
 import { Modal } from "../../../shared/components/Modal";
 import { useState } from "react";
 import InterviewScheduleForm from "../forms/InterviewScheduleForm";
+import type { InterviewFormValues } from "../validations/interview.schema";
 
-function InterviewScheduleTable() {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+type candidateIdProps = {
+  id: number | string | null;
+};
+
+function InterviewScheduleTable({ id }: candidateIdProps) {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const [selectedInterview, setSelectedInterview] =
+    useState<InterviewFormValues | null>(null);
+
+  const handleEdit = (interviewRow: InterviewFormValues) => {
+    setSelectedInterview(interviewRow);
+    setIsModalOpen(true);
+  };
+
+  const idParam = Number(id);
+  const filteredData = idParam
+    ? interviewTableData.filter((row) => row.candidateId === Number(id))
+    : interviewTableData;
+  console.log(filteredData);
+
   const tableDataClass =
     "whitespace-nowrap px-1.5 py-1 text-slate-800 group-hover:bg-slate-50";
   const iconStyle = "text-sm font-medium mr-2 h-5 w-5";
-	const tableHeadClass = `${tableDataClass} font-semibold uppercaseb bg-slate-200`;
+  const tableHeadClass = `${tableDataClass} font-semibold uppercase bg-slate-200`;
 
   return (
     <div className="card p-3">
@@ -28,56 +48,76 @@ function InterviewScheduleTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 bg-white">
-            {interviewTableData.map((interviewRow) => {
-              console.log(interviewRow);
-							const formatInterviewDate = new Intl.DateTimeFormat('en-US', {
-        				year: 'numeric',
-        				month: 'short', // "Jan", "Feb"
-        				day: '2-digit'  // "01", "02"
-      				}).format(new Date(interviewRow["interviewDate"]));
+            {filteredData.map((interviewRow) => {
+              const formatInterviewDate = new Intl.DateTimeFormat("en-US", {
+                year: "numeric",
+                month: "short", // "Jan", "Feb"
+                day: "2-digit", // "01", "02"
+              }).format(new Date(interviewRow["interviewDate"]));
 
               return (
-                <tr className="border-y border-transparent border-b-slate-200 hover:bg-slate-50"
-                  key={interviewRow["candidateId"]}
-									>
-                  <td className={`${tableDataClass} `}>{formatInterviewDate}</td>
-                  <td className={`${tableDataClass} `}>{interviewRow["interviewType"]}</td>
-                  <td className={`${tableDataClass} `}>{interviewRow["time"]}</td>
-                  <td className={`${tableDataClass} `}>{interviewRow["interviewer"]}</td>
-                  <td className={`${tableDataClass} `}>{interviewRow["interviewMode"]}</td>
+                <tr
+                  className="border-y border-transparent border-b-slate-200 hover:bg-slate-50"
+                  key={interviewRow.candidateId}
+                >
                   <td className={`${tableDataClass} `}>
-										<InterviewStatusBadge badge={interviewRow["interviewRoundStatus"]}/>
-										</td>
+                    {formatInterviewDate}
+                  </td>
+                  <td>{interviewRow.interviewTime}</td>
                   <td className={`${tableDataClass} `}>
-                  <button onClick={()=> setIsModalOpen(true)}>
-                    <Pencil
-                          className={`${iconStyle} text-amber-600 hover:text-amber-600`}
-                          />
+                    {interviewRow.interviewType}
+                  </td>
+                  <td className={`${tableDataClass} `}>
+                    {interviewRow.interviewer}
+                  </td>
+                  <td className={`${tableDataClass} `}>
+                    {interviewRow.interviewMode}
+                  </td>
+                  <td className={`${tableDataClass} `}>
+                    <InterviewStatusBadge
+                      badge={interviewRow["interviewRoundStatus"]}
+                    />
+                  </td>
+                  <td className={`${tableDataClass} `}>
+                    <button onClick={() => handleEdit(interviewRow)}>
+                      <Pencil
+                        className={`${iconStyle} text-amber-600 hover:text-amber-600`}
+                      />
                     </button>
-                    <Modal 
-                      isOpen={isModalOpen}
-                      onClose={()=> setIsModalOpen(false)}
-                      title="Schedule Interview"
-                    >
-                      <div className="space-y-4">
-                      <p className="text-sm text-gray-500">Modify your application profile attributes below.</p>
-                      <InterviewScheduleForm 
-                      defaultValues={}
-                        onSuccess={() => setIsModalOpen(false)}
-                          />
-                          <button onClick={() => setIsModalOpen(true)} className="px-4 py-2 border rounded">Cancel</button>
-                    </div>
-                    </Modal>
                   </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
+
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title="Edit Interview"
+        >
+          <div className="space-y-4">
+            <p className="text-sm text-gray-500">
+              Modify your application profile attributes below.
+            </p>
+            {selectedInterview && (
+              <InterviewScheduleForm
+                defaultValues={selectedInterview}
+                onSuccess={() => setIsModalOpen(false)}
+              />
+            )}
+
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="px-4 py-2 border rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        </Modal>
       </div>
     </div>
   );
 }
-
 
 export default InterviewScheduleTable;

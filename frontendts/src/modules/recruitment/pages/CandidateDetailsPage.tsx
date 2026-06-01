@@ -1,11 +1,16 @@
 import { Link, useParams } from "react-router-dom";
 import { CandidateTableData } from "../constants/candidateTableData";
 import DetailRow from "../../../shared/components/DetailRow";
+import InterviewScheduleTable from "../components/InterviewScheduleTable";
 
 function CandidateDetailsPage() {
   const { id } = useParams();
+
   const candidate = CandidateTableData.find(
-    (item) => item.id.toString() === id
+    (item) => {
+      if (!item.id) return false;
+      return item.id.toString() === id;
+    }
   );
 
   if (!candidate) {
@@ -78,6 +83,8 @@ function CandidateDetailsPage() {
         />
 
       </div>
+
+      <InterviewScheduleTable id={id} />
 
     </div>
   );
