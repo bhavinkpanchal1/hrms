@@ -1,8 +1,12 @@
 import { interviewTableData } from "../constants/interviewTableData";
 import { Pencil } from "lucide-react";
 import InterviewStatusBadge from "./InterviewStatusBadge";
+import { Modal } from "../../../shared/components/Modal";
+import { useState } from "react";
+import InterviewScheduleForm from "../forms/InterviewScheduleForm";
 
 function InterviewScheduleTable() {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const tableDataClass =
     "whitespace-nowrap px-1.5 py-1 text-slate-800 group-hover:bg-slate-50";
   const iconStyle = "text-sm font-medium mr-2 h-5 w-5";
@@ -45,9 +49,25 @@ function InterviewScheduleTable() {
 										<InterviewStatusBadge badge={interviewRow["interviewRoundStatus"]}/>
 										</td>
                   <td className={`${tableDataClass} `}>
+                  <button onClick={()=> setIsModalOpen(true)}>
                     <Pencil
-                      className={`${iconStyle} text-amber-600 hover:text-amber-600`}
-                    />
+                          className={`${iconStyle} text-amber-600 hover:text-amber-600`}
+                          />
+                    </button>
+                    <Modal 
+                      isOpen={isModalOpen}
+                      onClose={()=> setIsModalOpen(false)}
+                      title="Schedule Interview"
+                    >
+                      <div className="space-y-4">
+                      <p className="text-sm text-gray-500">Modify your application profile attributes below.</p>
+                      <InterviewScheduleForm 
+                      defaultValues={}
+                        onSuccess={() => setIsModalOpen(false)}
+                          />
+                          <button onClick={() => setIsModalOpen(true)} className="px-4 py-2 border rounded">Cancel</button>
+                    </div>
+                    </Modal>
                   </td>
                 </tr>
               );

@@ -18,7 +18,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
 
       {/* The White Content Card */}
-      <div className="relative z-10 w-full max-w-md rounded-lg bg-white p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+      <div className="relative z-10 w-full max-w-3xl rounded-lg bg-white p-3 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
         
         {/* Header Block */}
         <div className="flex items-center justify-between pb-2 border-b">

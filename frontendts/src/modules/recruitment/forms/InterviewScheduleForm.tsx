@@ -1,0 +1,120 @@
+import { useForm } from "react-hook-form";
+import Input from "../../../shared/components/Input"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { interviewSchema, type InterviewFormValues } from "../validations/interview.schema";
+import { departments } from "../../../shared/constants/departments";
+import Select from "../../../shared/components/Select";
+import { interviewRounds } from "../constants/interviewRound";
+import { interviewModes } from "../constants/interviewModes";
+import { interviewStatus } from "../constants/interviewStatus";
+
+type interviewFormProps = {
+  defaultValues?: InterviewFormValues,
+  onSuccess?: () => void,
+}
+
+function InterviewScheduleForm({ defaultValues, onSuccess }: interviewFormProps) {
+
+  const { register, handleSubmit, formState: { errors } } = useForm<InterviewFormValues>({ resolver: zodResolver(interviewSchema), defaultValues });
+
+  console.log(errors);
+  const errorStyle = "text-red-500 text-sm mt-1 mb-1";
+
+
+  const onSubmit = (data: InterviewFormValues) => {
+    console.log(data);
+    onSuccess();
+    return null;
+  }
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="flex flex-col">
+          <label className="text-xs">Department</label>
+          <Select
+            options={departments}
+            placeholder="Select department"
+            {...register('departments')}
+          />
+          <p className={errorStyle}>
+            {errors['departments']?.message || ""}
+          </p>
+
+        </div>
+        <div className="flex flex-col">
+          <label>Date</label>
+          <Input type="date" name="" placeholder="Enter Date"  {...register('interviewDate')} />
+          <p className={errorStyle}>
+
+            {errors['interviewDate']?.message || ""}
+          </p>
+        </div>
+
+        <div className="flex flex-col">
+          <label>Time</label>
+          <Input type="time" name="" placeholder="Enter Time" {...register('interviewTime')} />
+          <p className={errorStyle}>
+
+            {errors['interviewTime']?.message || ""}
+          </p>
+        </div>
+
+        <div className="flex flex-col">
+          <label>Round</label>
+          <Select
+            options={interviewRounds}
+            placehoder="Select Round"
+            {...register('interviewType')}
+          />
+          <p className={errorStyle}>
+
+            {errors['interviewType']?.message || ""}
+          </p>
+        </div>
+
+        <div className="flex flex-col">
+          <label>Interview mode</label>
+          <Select
+            options={interviewModes}
+            placehoder="Select Mode"
+            {...register('interviewMode')}
+          />
+          <p className={errorStyle}>
+            {errors['interviewMode']?.message || ""}
+          </p>
+        </div>
+        <div className="flex flex-col">
+          <label>Interviewer</label>
+          <select {...register("interviewer")}
+          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Select Interviewer</option>
+            <option value="Bhavin Patel">Bhavin Patel</option>
+          </select>
+          <p className={errorStyle}>
+
+            {errors['interviewer']?.message || ""}
+          </p>
+        </div>
+
+        <div className="flex flex-col">
+          <label>Interview Status</label>
+          <Select
+            options={interviewStatus}
+            placehoder="Select Status"
+            {...register('interviewRoundStatus')}
+          />
+          <p className={errorStyle}>
+            {errors['interviewRoundStatus']?.message || ""}
+          </p>
+        </div>
+
+      </div>
+
+      <div className="flex justify-end gap-2 pt-2">
+        <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">Save</button>
+      </div>
+    </form>
+  )
+}
+
+export default InterviewScheduleForm
