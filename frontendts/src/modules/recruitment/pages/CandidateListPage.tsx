@@ -5,7 +5,7 @@ function CandidateListPage() {
   return (
     <>
       <div>
-        <h2>Candidate List page</h2>
+        <h2 className="text-2xl font-semibold">Candidate List page</h2>
         <div className="flex mt-1 mb-2">
         <Link
           to="/recruitment/candidates/form"

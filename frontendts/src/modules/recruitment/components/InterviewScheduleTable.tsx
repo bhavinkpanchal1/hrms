@@ -5,35 +5,58 @@ import { Modal } from "../../../shared/components/Modal";
 import { useState } from "react";
 import InterviewScheduleForm from "../forms/InterviewScheduleForm";
 import type { InterviewFormValues } from "../validations/interview.schema";
+import Select from "../../../shared/components/Select";
+import { interviewStatus } from "../constants/interviewStatus";
 
 type candidateIdProps = {
   id: number | string | null;
 };
 
+const tableDataClass =
+  "whitespace-nowrap px-1.5 py-1 text-slate-800 group-hover:bg-slate-50";
+const iconStyle = "text-sm font-medium mr-2 h-5 w-5";
+const tableHeadClass = `${tableDataClass} font-semibold uppercase bg-slate-200`;
+
 function InterviewScheduleTable({ id }: candidateIdProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
   const [selectedInterview, setSelectedInterview] =
     useState<InterviewFormValues | null>(null);
 
-  const handleEdit = (interviewRow: InterviewFormValues) => {
+  //Update Candidate id & status based on oarmas or dropdown filter
+  const [filters, setFilters] = useState("Scheduled");
+  const idParam = Number(id);
+
+  //for Edit Schedule table & open modal
+  const handleEditModal = (interviewRow: InterviewFormValues) => {
     setSelectedInterview(interviewRow);
     setIsModalOpen(true);
   };
 
-  const idParam = Number(id);
-  const filteredData = idParam
-    ? interviewTableData.filter((row) => row.candidateId === Number(id))
-    : interviewTableData;
-  console.log(filteredData);
+  const handleFilterstatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilters(() => (e.target.value || "Scheduled" ));
+  };
 
-  const tableDataClass =
-    "whitespace-nowrap px-1.5 py-1 text-slate-800 group-hover:bg-slate-50";
-  const iconStyle = "text-sm font-medium mr-2 h-5 w-5";
-  const tableHeadClass = `${tableDataClass} font-semibold uppercase bg-slate-200`;
+  //get candidate Id and filter the table data based on it
+  const filteredData = interviewTableData.filter((row) => {
+    const matchCandidate = idParam ? row.candidateId === idParam : true;
+    const matchChangedstatus = filters
+      ? row.interviewRoundStatus === filters
+      : true;
+    return matchCandidate && matchChangedstatus;
+  });
 
   return (
     <div className="card p-3">
+      <div className="w-full flex">
+        <h2 className="text-2xl font-semibold">Scheduled Interview</h2>
+        <div className="ml-auto">
+          <Select
+            options={interviewStatus}
+            className="mb-3 lg:w-36"
+            onChange={handleFilterstatus}
+          />
+        </div>
+      </div>
       <div className="is-scrollbar-hidden min-w-full overflow-x-auto">
         <table className="is-hoverable w-full text-left">
           <thead className="bg-gray-50">
@@ -79,11 +102,13 @@ function InterviewScheduleTable({ id }: candidateIdProps) {
                     />
                   </td>
                   <td className={`${tableDataClass} `}>
-                    <button onClick={() => handleEdit(interviewRow)}>
-                      <Pencil
-                        className={`${iconStyle} text-amber-600 hover:text-amber-600`}
-                      />
-                    </button>
+                    {interviewRow["interviewRoundStatus"] === "Scheduled" && (
+                      <button onClick={() => handleEditModal(interviewRow)}>
+                        <Pencil
+                          className={`${iconStyle} text-amber-600 hover:text-amber-600`}
+                        />
+                      </button>
+                    )}
                   </td>
                 </tr>
               );
@@ -103,16 +128,9 @@ function InterviewScheduleTable({ id }: candidateIdProps) {
             {selectedInterview && (
               <InterviewScheduleForm
                 defaultValues={selectedInterview}
-                onSuccess={() => setIsModalOpen(false)}
+                handleCloseModal={() => setIsModalOpen(false)}
               />
             )}
-
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="px-4 py-2 border rounded"
-            >
-              Cancel
-            </button>
           </div>
         </Modal>
       </div>

@@ -10,17 +10,22 @@ import Select from "../../../shared/components/Select";
 import { interviewRounds } from "../constants/interviewRound";
 import { interviewModes } from "../constants/interviewModes";
 import { interviewStatus } from "../constants/interviewStatus";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { sendInterviewEmail } from "../../../shared/utils/emailService";
+import Swal from "sweetalert2";
+import { hideLoader, showLoader } from "../../../shared/utils/swal";
+import Button from "../../../shared/components/Button";
 
 type interviewFormProps = {
   defaultValues?: InterviewFormValues;
-  onSuccess?: () => void;
+  handleCloseModal?: () => void;
 };
 
 function InterviewScheduleForm({
   defaultValues,
-  onSuccess,
+  handleCloseModal,
 }: interviewFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const {
     register,
     reset,
@@ -31,16 +36,43 @@ function InterviewScheduleForm({
   });
 
   useEffect(() => {
-    if(defaultValues) {
+    if (defaultValues) {
       reset(defaultValues);
     }
   }, [defaultValues, reset]);
   const errorStyle = "text-red-500 text-sm mt-1 mb-1";
 
-  const onSubmit = (data: InterviewFormValues) => {
-    console.log(data);
-    onSuccess?.();
+  const onSubmit = async (data: InterviewFormValues) => {
+    try {
+      setIsSubmitting(true);
+      showLoader("Sending Email...");
+      console.log(data);
+      const emailResponse = await sendInterviewEmail(data);
+
+      hideLoader();
+
+      await Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Interview scheduled and email sent successfully.",
+      });
+
+      console.log(emailResponse);
+
+      handleCloseModal?.();
+    } catch (error) {
+      hideLoader();
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Email Failed",
+        text: error instanceof Error ? error.message : "Something went wrong",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid gap-4 md:grid-cols-2">
@@ -119,11 +151,19 @@ function InterviewScheduleForm({
 
       <div className="flex justify-end gap-2 pt-2">
         <button
+          type="button"
+          onClick={handleCloseModal}
+          className="px-4 py-2 border rounded"
+        >
+          Cancel
+        </button>
+        <Button
           type="submit"
           className="px-4 py-2 bg-blue-600 text-white rounded"
+          loading={isSubmitting}
         >
           Save
-        </button>
+        </Button>
       </div>
     </form>
   );
