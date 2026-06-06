@@ -8,6 +8,7 @@ import type { InterviewFormValues } from "../validations/interview.schema";
 import Select from "../../../shared/components/Select";
 import { interviewStatus } from "../constants/interviewStatus";
 
+
 type candidateIdProps = {
   id: number | string | null;
 };
