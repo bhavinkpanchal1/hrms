@@ -109,7 +109,7 @@ function InterviewScheduleForm({
           <label>Round</label>
           <Select
             options={interviewRounds}
-            placehoder="Select Round"
+            placeholder="Select Round"
             {...register("interviewType")}
           />
           <p className={errorStyle}>{errors["interviewType"]?.message || ""}</p>
@@ -119,7 +119,7 @@ function InterviewScheduleForm({
           <label>Interview mode</label>
           <Select
             options={interviewModes}
-            placehoder="Select Mode"
+            placeholder="Select Mode"
             {...register("interviewMode")}
           />
           <p className={errorStyle}>{errors["interviewMode"]?.message || ""}</p>
@@ -140,7 +140,7 @@ function InterviewScheduleForm({
           <label>Interview Status</label>
           <Select
             options={interviewStatus}
-            placehoder="Select Status"
+            placeholder="Select Status"
             {...register("interviewRoundStatus")}
           />
           <p className={errorStyle}>

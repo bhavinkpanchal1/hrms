@@ -10,7 +10,7 @@ import { interviewStatus } from "../constants/interviewStatus";
 
 
 type candidateIdProps = {
-  id: number | string | null;
+  id?: number | string | null;
 };
 
 const tableDataClass =

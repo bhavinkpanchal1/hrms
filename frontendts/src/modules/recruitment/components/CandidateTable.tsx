@@ -79,7 +79,7 @@ function CandidateTable() {
                     </Link>
                     <Button
                       type="button"
-                      onClick={() => handleDelete(candidateRow.id)}
+                      onClick={() => handleDelete(candidateRow.id!)}
                     >
                       <Trash2
                         className={`${iconStyle} text-red-600 hover:text-red-800`}
