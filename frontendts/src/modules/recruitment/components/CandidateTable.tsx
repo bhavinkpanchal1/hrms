@@ -23,7 +23,7 @@ function CandidateTable() {
     console.log(candidateId);
     setInterviews((prev) => prev.filter((row) => row.id !== candidateId));
   };
-
+  
   return (
     <div className="card p-3">
       <div className="is-scrollbar-hidden min-w-full overflow-x-auto">
