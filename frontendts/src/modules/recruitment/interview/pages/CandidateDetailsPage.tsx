@@ -1,7 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { CandidateTableData } from "../constants/candidateTableData";
+
 import DetailRow from "../../../../shared/components/DetailRow";
-import InterviewScheduleTable from "../../components/InterviewScheduleTable";
+import { CandidateTableData } from "../../candidate/constants/candidateTableData";
+import InterviewScheduleTable from "../components/InterviewScheduleTable";
+
 
 function CandidateDetailsPage() {
   const { id } = useParams();

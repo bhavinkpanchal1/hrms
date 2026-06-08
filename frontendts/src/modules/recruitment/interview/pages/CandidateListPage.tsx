@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import CandidateTable from "../../components/CandidateTable";
+import CandidateTable from "../../candidate/components/CandidateTable";
 
 function CandidateListPage() {
   return (

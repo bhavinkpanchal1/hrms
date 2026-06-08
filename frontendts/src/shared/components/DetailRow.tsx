@@ -1,6 +1,6 @@
 type  DetailRowProps = {
   label: string;
-  value: string| number;
+  value?: string| number;
 };
 
 function DetailRow({label, value}:DetailRowProps) {

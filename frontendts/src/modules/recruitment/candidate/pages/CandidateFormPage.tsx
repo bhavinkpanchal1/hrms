@@ -10,7 +10,11 @@ function CandidateFormPage() {
   const isEditMode = Boolean(id);
 
   const candidate = CandidateTableData.find(
-    (item) => item.id.toString() === id,
+    (item) => {
+      if(item.id) {
+      return  item.id.toString() === id
+      }
+    }
   );
 
   return (

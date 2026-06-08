@@ -17,8 +17,9 @@ import { interviewStatus } from "../constants/interviewStatus";
 import InterviewScheduleForm from "../forms/InterviewScheduleForm";
 
 
+
 type candidateIdProps = {
-  id: number | string | null;
+  id?: number | string | null;
 };
 
 const tableDataClass =
@@ -62,9 +63,10 @@ function InterviewScheduleTable({ id }: candidateIdProps) {
         text: "Interview scheduled",
       });
 
-      return true;
     } catch (error) {
       hideLoader();
+
+      console.error(error);
 
       await Swal.fire({
         icon: "error",
@@ -73,7 +75,6 @@ function InterviewScheduleTable({ id }: candidateIdProps) {
       });
 
       //throw error;
-      return false;
     }
   };
 

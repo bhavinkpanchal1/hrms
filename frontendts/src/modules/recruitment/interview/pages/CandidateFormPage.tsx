@@ -1,8 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../../shared/components/Button";
-import CandidateForm from "../forms/CandidateForm";
-import { CandidateTableData } from "../constants/candidateTableData";
+
+
 import { ArrowLeft } from "lucide-react";
+import { CandidateTableData } from "../../candidate/constants/candidateTableData";
+import CandidateForm from "../../candidate/forms/CandidateForm";
 
 function CandidateFormPage() {
   const navigate = useNavigate();

@@ -1,4 +1,5 @@
-import type { InterviewFormValues } from "../candidate/validations/interview.schema";
+import type { InterviewFormValues } from "../interview/validations/interview.schema";
+
 
 type InterviewStatusBadgeprops = {
   badge: InterviewFormValues["interviewRoundStatus"];
