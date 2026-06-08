@@ -14,6 +14,20 @@
 // type candidateIdProps = {
 //   id: number | string | null;
 // };
+import { interviewTableData } from "../constants/interviewTableData";
+import { Pencil } from "lucide-react";
+import InterviewStatusBadge from "./InterviewStatusBadge";
+import { Modal } from "../../../shared/components/Modal";
+import { useState } from "react";
+import InterviewScheduleForm from "../forms/InterviewScheduleForm";
+import type { InterviewFormValues } from "../validations/interview.schema";
+import Select from "../../../shared/components/Select";
+import { interviewStatus } from "../constants/interviewStatus";
+
+
+type candidateIdProps = {
+  id?: number | string | null;
+};
 
 // const tableDataClass =
 //   "whitespace-nowrap px-1.5 py-1 text-slate-800 group-hover:bg-slate-50";

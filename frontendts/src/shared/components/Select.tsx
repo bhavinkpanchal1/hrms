@@ -1,7 +1,7 @@
 import type { SelectHTMLAttributes } from "react"
 
 type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
-  options: string[];
+  options: readonly string[];
   placeholder?: string;
 }
 

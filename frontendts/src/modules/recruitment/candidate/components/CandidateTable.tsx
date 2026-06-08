@@ -25,7 +25,7 @@ function CandidateTable() {
     console.log(candidateId);
     setInterviews((prev) => prev.filter((row) => row.id !== candidateId));
   };
-
+  
   return (
     <div className="card p-3">
       <div className="is-scrollbar-hidden min-w-full overflow-x-auto">
@@ -81,7 +81,7 @@ function CandidateTable() {
                     </Link>
                     <Button
                       type="button"
-                      onClick={() => handleDelete(candidateRow.id)}
+                      onClick={() => handleDelete(candidateRow.id!)}
                     >
                       <Trash2
                         className={`${iconStyle} text-red-600 hover:text-red-800`}

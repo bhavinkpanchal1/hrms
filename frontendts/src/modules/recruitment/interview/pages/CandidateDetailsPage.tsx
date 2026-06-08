@@ -50,7 +50,7 @@ function CandidateDetailsPage() {
           Basic Information
         </h2>
 
-        <DetailRow label="ID" value={candidate.id} />
+        <DetailRow label="ID" value={candidate.id ?? ""} />
 
         <DetailRow
           label="First Name"
