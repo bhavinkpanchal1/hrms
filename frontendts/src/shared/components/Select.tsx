@@ -21,7 +21,7 @@ function Select({
     >
       <option value="">{placeholder}</option>
       {
-        options.map((option) => (
+        options?.map((option) => (
           <option key={option}
             value={option}
           >

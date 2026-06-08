@@ -40,9 +40,16 @@ function DashboardLayout() {
           </Link>
           <Link
             to="/recruitment/interview"
-            className="lex items-center space-x-3 rounded-lg px-4 py-2.5 text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white"
+            className="flex items-center space-x-3 rounded-lg px-4 py-2.5 text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white"
           >
             <span>Scheduled Interivew</span>
+          </Link>
+
+           <Link
+            to="employee/list"
+            className="flex items-center space-x-3 rounded-lg px-4 py-2.5 text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white"
+          >
+            <span>Employees</span>
           </Link>
         </nav>
       </aside>

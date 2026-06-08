@@ -4,6 +4,7 @@ import CandidateListPage from "../../modules/recruitment/candidate/pages/Candida
 import CandidateFormPage from "../../modules/recruitment/candidate/pages/CandidateFormPage";
 import CandidateDetailsPage from "../../modules/recruitment/candidate/pages/CandidateDetailsPage";
 import InterviewScheduleTable from "../../modules/recruitment/interview/components/InterviewScheduleTable";
+import EmployeeListPage from "../../modules/employee/pages/EmployeeListPage";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
 				path: "recruitment/interview",
 				element: <InterviewScheduleTable />,
+			},
+      {
+				path: "employee/list",
+				element: <EmployeeListPage />,
 			},
     ],
   },
