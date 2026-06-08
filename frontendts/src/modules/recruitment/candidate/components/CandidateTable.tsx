@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import { CandidateTableData } from "../constants/candidateTableData";
-import { tableHeaders } from "../constants/candidateTableHeader";
+
+
 import { Pencil, Trash2, Eye, Calendar } from "lucide-react";
 import CandidateStatusBadge from "./CandidateStatusBadge";
-//import Modal from "../../../shared/components/Modal";
 import { useState } from "react";
-import { Modal } from "../../../shared/components/Modal";
-import InterviewScheduleForm from "../forms/InterviewScheduleForm";
-import Button from "../../../shared/components/Button";
+
+import { Modal } from "../../../../shared/components/Modal";
+import Button from "../../../../shared/components/Button";
+import { tableHeaders } from "../constants/candidateTableHeader";
+import { CandidateTableData } from "../constants/candidateTableData";
+import InterviewScheduleForm from "../../interview/forms/InterviewScheduleForm";
 
 const HIDDEN_STATUSES = ["Created", "Rejected", "Hired"];
 

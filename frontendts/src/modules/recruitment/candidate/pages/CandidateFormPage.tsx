@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "../../../shared/components/Button";
+import Button from "../../../../shared/components/Button";
 import CandidateForm from "../forms/CandidateForm";
 import { CandidateTableData } from "../constants/candidateTableData";
 import { ArrowLeft } from "lucide-react";

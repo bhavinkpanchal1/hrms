@@ -2,8 +2,8 @@
 // import InterviewStatusBadge from "./InterviewStatusBadge";
 // import { Modal } from "../../../shared/components/Modal";
 // import { useState } from "react";
-// import InterviewScheduleForm from "../candidate/forms/InterviewScheduleForm";
-// import type { InterviewFormValues } from "../candidate/validations/interview.schema";
+// import InterviewScheduleForm from "../candidate/components/forms/InterviewScheduleForm";
+// import type { InterviewFormValues } from "../validations/interview.schema";
 // import Select from "../../../shared/components/Select";
 // import { interviewStatus } from "../constants/interviewStatus";
 // import { hideLoader, showLoader } from "../../../shared/utils/swal";

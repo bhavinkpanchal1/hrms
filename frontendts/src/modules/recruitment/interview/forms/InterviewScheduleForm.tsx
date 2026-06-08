@@ -1,31 +1,32 @@
 import { useForm } from "react-hook-form";
-import Input from "../../../shared/components/Input";
+import Input from "../../../../shared/components/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   interviewSchema,
   type InterviewFormValues,
 } from "../validations/interview.schema";
-import { departments } from "../../../shared/constants/departments";
-import Select from "../../../shared/components/Select";
+import { departments } from "../../../../shared/constants/departments";
+import Select from "../../../../shared/components/Select";
+
+import { useEffect } from "react";
+import Button from "../../../../shared/components/Button";
 import { interviewRounds } from "../constants/interviewRound";
 import { interviewModes } from "../constants/interviewModes";
 import { interviewStatus } from "../constants/interviewStatus";
-import { useEffect, useState } from "react";
-import { sendInterviewEmail } from "../../../shared/utils/emailService";
-import Swal from "sweetalert2";
-import { hideLoader, showLoader } from "../../../shared/utils/swal";
-import Button from "../../../shared/components/Button";
 
 type interviewFormProps = {
   defaultValues?: InterviewFormValues;
   handleCloseModal?: () => void;
+  onSubmitForm?: (data: InterviewFormValues) => Promise<void>;
+ loading?: boolean;
 };
 
 function InterviewScheduleForm({
   defaultValues,
   handleCloseModal,
+  loading,
+  onSubmitForm
 }: interviewFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const {
     register,
     reset,
@@ -33,6 +34,7 @@ function InterviewScheduleForm({
     formState: { errors },
   } = useForm<InterviewFormValues>({
     resolver: zodResolver(interviewSchema),
+    defaultValues
   });
 
   useEffect(() => {
@@ -44,33 +46,42 @@ function InterviewScheduleForm({
 
   const onSubmit = async (data: InterviewFormValues) => {
     try {
-      setIsSubmitting(true);
-      showLoader("Sending Email...");
-      console.log(data);
-      const emailResponse = await sendInterviewEmail(data);
 
-      hideLoader();
-
-      await Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Interview scheduled and email sent successfully.",
-      });
-
-      console.log(emailResponse);
-
+      await onSubmitForm?.(data);
+      reset();
       handleCloseModal?.();
-    } catch (error) {
-      hideLoader();
-      console.error(error);
-      Swal.fire({
-        icon: "error",
-        title: "Email Failed",
-        text: error instanceof Error ? error.message : "Something went wrong",
-      });
-    } finally {
-      setIsSubmitting(false);
     }
+    catch(error) {
+      console.error(error);
+    }
+    // try {
+    //   setIsSubmitting(true);
+    //   showLoader("Sending Email...");
+    //   console.log(data);
+    //   const emailResponse = await scheduleInterview(data);
+
+    //   hideLoader();
+
+    //   await Swal.fire({
+    //     icon: "success",
+    //     title: "Success",
+    //     text: "Interview scheduled and email sent successfully.",
+    //   });
+
+    //   console.log(emailResponse);
+
+    //   handleCloseModal?.();
+    // } catch (error) {
+    //   hideLoader();
+    //   console.error(error);
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Email Failed",
+    //     text: error instanceof Error ? error.message : "Something went wrong",
+    //   });
+    // } finally {
+    //   setIsSubmitting(false);
+    // }
   };
 
   return (
@@ -159,8 +170,9 @@ function InterviewScheduleForm({
         </button>
         <Button
           type="submit"
+           loading={loading}
+            disabled={loading}
           className="px-4 py-2 bg-blue-600 text-white rounded"
-          loading={isSubmitting}
         >
           Save
         </Button>

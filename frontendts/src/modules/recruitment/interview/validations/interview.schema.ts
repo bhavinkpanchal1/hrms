@@ -2,7 +2,7 @@ import { z } from "zod"
 import { interviewModes } from "../constants/interviewModes";
 import { interviewRounds } from "../constants/interviewRound";
 import { interviewStatus } from "../constants/interviewStatus";
-import { departments } from "../../../shared/constants/departments";
+import { departments } from "../../../../shared/constants/departments";
 
 export const interviewSchema = z.object({
     id: z.number().optional(),

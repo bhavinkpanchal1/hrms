@@ -1,4 +1,4 @@
-import type {FormFieldConfig} from "./../types/candidate.types";
+import type {FormFieldConfig} from "../types/candidate.types";
 
 export const formFieldData: FormFieldConfig[] = [
   {

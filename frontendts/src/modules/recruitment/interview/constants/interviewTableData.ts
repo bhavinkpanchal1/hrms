@@ -1,4 +1,4 @@
-import type { InterviewFormValues } from "../candidate/validations/interview.schema";
+import type { InterviewFormValues } from "../validations/interview.schema";
 
 export const interviewTableData: InterviewFormValues[] = [
   {
